@@ -4,24 +4,24 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Arrays;
 
-public final class Search {
+public final class SearchResult {
 
     @SerializedName("start")
-    private final String start;
+    private final int start;
 
     @SerializedName("num_found")
     private final int numFound;
 
     @SerializedName("docs")
-    private final Doc[] docs;
+    private final Document[] docs;
 
-    public Search(String start, int numFound, Doc[] docs) {
+    public SearchResult(int start, int numFound, Document[] docs) {
         this.start = start;
         this.numFound = numFound;
         this.docs = docs;
     }
 
-    public String getStart() {
+    public int getStart() {
         return start;
     }
 
@@ -29,7 +29,7 @@ public final class Search {
         return numFound;
     }
 
-    public Doc[] getDocs() {
+    public Document[] getDocs() {
         return docs;
     }
 
@@ -42,7 +42,7 @@ public final class Search {
                 '}';
     }
 
-    public static final class Doc {
+    public static final class Document {
 
         @SerializedName("cover_i")
         private final int coverIdentifier;
@@ -74,9 +74,9 @@ public final class Search {
         @SerializedName("public_scan_b")
         private final boolean publicScanB;
 
-        public Doc(int coverIdentifier, boolean hasFullText, int editionCount, String title,
-                   String[] authorsNames, int firstPublishYear, String key, String[] ias,
-                   String[] authorKeys, boolean publicScanB) {
+        public Document(int coverIdentifier, boolean hasFullText, int editionCount, String title,
+                        String[] authorsNames, int firstPublishYear, String key, String[] ias,
+                        String[] authorKeys, boolean publicScanB) {
             this.coverIdentifier = coverIdentifier;
             this.hasFullText = hasFullText;
             this.editionCount = editionCount;
