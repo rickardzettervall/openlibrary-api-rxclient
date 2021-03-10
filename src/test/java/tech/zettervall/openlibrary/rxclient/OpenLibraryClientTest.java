@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import retrofit2.adapter.rxjava3.HttpException;
 import tech.zettervall.openlibrary.rxclient.data.Repository;
 import tech.zettervall.openlibrary.rxclient.models.*;
 
@@ -232,16 +231,58 @@ public class OpenLibraryClientTest {
     }
 
     /**
-     * Test a successful API fetch of SearchResult.
+     * Test a successful API fetch of SearchResult (Q).
      */
     @Test
-    public void searchSuccess() {
+    public void searchByQSuccess() {
         openLibraryClient.getRepository().search(Repository.SearchType.Q, "the lord of the rings", null)
                 .blockingSubscribe(new DisposableSingleObserver<SearchResult>() {
                     @Override
                     public void onSuccess(@NonNull SearchResult searchResult) {
                         assertEquals(100, searchResult.getDocs().length);
                         assertTrue(searchResult.getDocs()[0].getTitle().toLowerCase().contains("the lord of the rings"));
+                        System.out.println("Received: " + searchResult.toString());
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        fail();
+                    }
+                });
+    }
+
+    /**
+     * Test a successful API fetch of SearchResult (Title).
+     */
+    @Test
+    public void searchByTitleSuccess() {
+        openLibraryClient.getRepository().search(Repository.SearchType.TITLE, "the lord of the rings", null)
+                .blockingSubscribe(new DisposableSingleObserver<SearchResult>() {
+                    @Override
+                    public void onSuccess(@NonNull SearchResult searchResult) {
+                        assertEquals(100, searchResult.getDocs().length);
+                        assertTrue(searchResult.getDocs()[0].getTitle().toLowerCase().contains("the lord of the rings"));
+                        System.out.println("Received: " + searchResult.toString());
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        fail();
+                    }
+                });
+    }
+
+    /**
+     * Test a successful API fetch of SearchResult (Title).
+     */
+    @Test
+    public void searchByAuthorSuccess() {
+        openLibraryClient.getRepository().search(Repository.SearchType.AUTHOR, "tolkien", null)
+                .blockingSubscribe(new DisposableSingleObserver<SearchResult>() {
+                    @Override
+                    public void onSuccess(@NonNull SearchResult searchResult) {
+                        assertEquals(100, searchResult.getDocs().length);
+                        assertTrue(searchResult.getDocs()[0].getAuthorsNames()[0].toLowerCase().contains("tolkien"));
                         System.out.println("Received: " + searchResult.toString());
                     }
 
