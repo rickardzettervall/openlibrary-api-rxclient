@@ -107,16 +107,18 @@ public final class Repository {
                                        @NonNull String query,
                                        @Nullable Integer page) {
         String reformattedQuery = query.replaceAll(" ", "+");
-        Single<SearchResult> single;
+        Single<SearchResult> response;
         switch (searchType) {
             case TITLE:
-                single = openLibraryApi.search(null, reformattedQuery, null, page);
+                response = openLibraryApi.search(null, reformattedQuery, null, page);
+                break;
             case AUTHOR:
-                single = openLibraryApi.search(null, null, reformattedQuery, page);
+                response = openLibraryApi.search(null, null, reformattedQuery, page);
+                break;
             default:
-                single = openLibraryApi.search(reformattedQuery, null, null, page);
+                response = openLibraryApi.search(reformattedQuery, null, null, page);
         }
-        return single.flatMap(result -> {
+        return response.flatMap(result -> {
             if (result.getDocs().length == 0) {
                 throw new Exception(HTTP_404);
             }
