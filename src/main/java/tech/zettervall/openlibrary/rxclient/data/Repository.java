@@ -1,6 +1,7 @@
 package tech.zettervall.openlibrary.rxclient.data;
 
 import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.annotations.Nullable;
 import io.reactivex.rxjava3.core.Single;
 import tech.zettervall.openlibrary.rxclient.models.*;
 
@@ -13,12 +14,13 @@ public final class Repository {
     private static final String JSCMD_VIEWAPI = "viewapi";
     private static final String JSCMD_DATA = "data";
     private static final String JSCMD_DETAILS = "details";
+    private static final String HTTP_404 = "HTTP 404 Not Found";
 
     private final OpenLibraryApi openLibraryApi = OpenLibraryRetrofit.getInstance().getOpenLibApi();
 
     /**
      * Get Work from Open Library API.
-     * <p>
+     *
      * "A Work is a logical collection of similar Editions. "Fantastic Mr. Fox" could
      * be a Work which contains a Spanish translation edition, or perhaps a 2nd edition
      * which has an additional chapter or corrections. Work metadata will include general
@@ -32,7 +34,7 @@ public final class Repository {
 
     /**
      * Get Edition from Open Library API.
-     * <p>
+     *
      * "Work metadata will include general umbrella information about a book,
      * whereas an Edition will have a publisher, an ISBN, a book-jacket, and
      * other specific information."
@@ -45,7 +47,7 @@ public final class Repository {
 
     /**
      * Get Edition from Open Library API.
-     * <p>
+     *
      * "Work metadata will include general umbrella information about a book,
      * whereas an Edition will have a publisher, an ISBN, a book-jacket, and
      * other specific information."
@@ -58,17 +60,15 @@ public final class Repository {
 
     /**
      * Get Books from Open Library API.
-     * <p>
+     *
      * "The Book API is a generic, flexible, configurable endpoint which allows
      * requesting information on one or more books using ISBNs, OCLC Numbers,
      * LCCNs and OLIDs (Open Library IDs)."
-     * <p>
+     *
      * It is advised to use BookView or BookData, BookDetail is a less stable format.
      *
      * @param bookClass   Decides what type of details each queried Book should have.
      * @param identifiers Book identifiers to query, e.g. ISBN:0201558025.
-     * @return List of queried books, returns an empty list when no book was
-     * matched by the identifiers.
      */
     public <T extends Book> Single<List<T>> getBooks(@NonNull Class<T> bookClass,
                                                      @NonNull String... identifiers) {
@@ -84,15 +84,51 @@ public final class Repository {
             jsCmd = JSCMD_VIEWAPI;
         }
         return openLibraryApi.getBooks(identifier, FORMAT_JSON, jsCmd)
-                .flatMap(jsonObject -> Single.just(Book.jsonConverter(bookClass, jsonObject)));
+                .flatMap(jsonObject -> {
+                    if (jsonObject.keySet().size() == 0) {
+                        throw new Exception(HTTP_404);
+                    }
+                    return Single.just(Book.jsonConverter(bookClass, jsonObject));
+                });
+    }
+
+    /**
+     * Search the Open Library API.
+     * "WARNING: This is an experimental API and can change in future."
+     *
+     * @param searchType Type of query to perform.
+     * @param query      What to query for.
+     * @param page       Which page to get the results for. The returned SearchResult has
+     *                   a parameter called numFound, this is the number of found matches.
+     *                   Each page produce 100 results, e.g. no page (page 1) returns result 1-99,
+     *                   page 2 returns results 100-199 and so on.
+     */
+    public Single<SearchResult> search(@NonNull SearchType searchType,
+                                       @NonNull String query,
+                                       @Nullable Integer page) {
+        String reformattedQuery = query.replaceAll(" ", "+");
+        Single<SearchResult> single;
+        switch (searchType) {
+            case TITLE:
+                single = openLibraryApi.search(null, reformattedQuery, null, page);
+            case AUTHOR:
+                single = openLibraryApi.search(null, null, reformattedQuery, page);
+            default:
+                single = openLibraryApi.search(reformattedQuery, null, null, page);
+        }
+        return single.flatMap(result -> {
+            if (result.getDocs().length == 0) {
+                throw new Exception(HTTP_404);
+            }
+            return Single.just(result);
+        });
     }
 
     /**
      * Get cover URL for a book.
-     * <p>
+     *
      * "Book covers can be accessed using Cover ID (internal cover ID), OLID (Open Library ID),
      * ISBN, OCLC, LCCN and other identifiers like librarything and goodreads."
-     * <p>
      * If any IP tries to access more that the allowed limit, the service will return "403 Forbidden" status.
      *
      * @param key                Type of key identifier to use.
@@ -147,5 +183,9 @@ public final class Repository {
 
     public enum CoverSize {
         S, M, L
+    }
+
+    public enum SearchType {
+        Q, TITLE, AUTHOR
     }
 }

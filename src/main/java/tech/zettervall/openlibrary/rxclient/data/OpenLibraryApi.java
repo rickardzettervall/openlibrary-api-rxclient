@@ -2,11 +2,12 @@ package tech.zettervall.openlibrary.rxclient.data;
 
 import com.google.gson.JsonObject;
 import io.reactivex.rxjava3.core.Single;
-import tech.zettervall.openlibrary.rxclient.models.Edition;
-import tech.zettervall.openlibrary.rxclient.models.Work;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import tech.zettervall.openlibrary.rxclient.models.Edition;
+import tech.zettervall.openlibrary.rxclient.models.SearchResult;
+import tech.zettervall.openlibrary.rxclient.models.Work;
 
 /**
  * Open Library API.
@@ -58,7 +59,7 @@ interface OpenLibraryApi {
      *
      * @param bibkeys String of one or more comma (,) separated identifying keys, e.g. ISBN:0201558025.
      * @param format  Type of response, in this case it must be set to "json".
-     * @param cmd     Control how extensive the response should be: 'viewapi', 'tech.zettervall.olrxclient.data' or 'details'
+     * @param cmd     Control how extensive the response should be: 'viewapi', 'data' or 'details'
      * @return JsonObject of the API response, conversion to POJO is not possible because the
      * returned labels are dynamic.
      */
@@ -67,5 +68,23 @@ interface OpenLibraryApi {
             @Query("bibkeys") String bibkeys,
             @Query("format") String format,
             @Query("jscmd") String cmd
+    );
+
+    /**
+     * Search API.
+     * "WARNING: This is an experimental API and can change in future."
+     *
+     * @param query       General query.
+     * @param titleQuery  Query for book title.
+     * @param authorQuery Query for authors.
+     * @param page        Which page to get results from.
+     * @return Observable Single<SearchResult>
+     */
+    @GET("search.json")
+    Single<SearchResult> search(
+            @Query("q") String query,
+            @Query("title") String titleQuery,
+            @Query("author") String authorQuery,
+            @Query("page") Integer page
     );
 }
