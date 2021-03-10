@@ -13,6 +13,7 @@ import tech.zettervall.openlibrary.rxclient.data.Repository;
 import tech.zettervall.openlibrary.rxclient.models.*;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -282,7 +283,7 @@ public class OpenLibraryClientTest {
                     @Override
                     public void onSuccess(@NonNull SearchResult searchResult) {
                         assertEquals(100, searchResult.getDocs().length);
-                        assertTrue(searchResult.getDocs()[0].getAuthorsNames()[0].toLowerCase().contains("tolkien"));
+                        assertTrue(Arrays.toString(searchResult.getDocs()[0].getAuthorsNames()).toLowerCase().contains("tolkien"));
                         System.out.println("Received: " + searchResult.toString());
                     }
 
