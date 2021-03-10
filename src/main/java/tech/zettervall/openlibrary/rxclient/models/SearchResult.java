@@ -131,7 +131,7 @@ public final class SearchResult {
 
         @Override
         public String toString() {
-            return "Doc{" +
+            return "Document{" +
                     "coverIdentifier=" + coverIdentifier +
                     ", hasFullText=" + hasFullText +
                     ", editionCount=" + editionCount +
