@@ -274,7 +274,7 @@ public class OpenLibraryClientTest {
     }
 
     /**
-     * Test a successful API fetch of SearchResult (Title).
+     * Test a successful API fetch of SearchResult (Author).
      */
     @Test
     public void searchByAuthorSuccess() {
