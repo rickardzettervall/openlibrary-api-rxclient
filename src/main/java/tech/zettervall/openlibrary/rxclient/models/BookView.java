@@ -76,9 +76,6 @@ public final class BookView extends Book {
         return "BookView{" +
                 "bibKey='" + bibKey + '\'' +
                 ", infoUrl='" + infoUrl + '\'' +
-                ", preview='" + preview + '\'' +
-                ", previewUrl='" + previewUrl + '\'' +
-                ", thumbnailUrl='" + thumbnailUrl + '\'' +
                 '}';
     }
 }

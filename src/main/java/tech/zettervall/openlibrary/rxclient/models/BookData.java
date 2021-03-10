@@ -140,19 +140,7 @@ public final class BookData extends Book implements Comparable<BookData> {
     public String toString() {
         return "BookData{" +
                 "title='" + title + '\'' +
-                ", publishers=" + Arrays.toString(publishers) +
-                ", identifiers=" + identifiers +
-                ", classifications=" + classifications +
-                ", links=" + Arrays.toString(links) +
-                ", weight='" + weight + '\'' +
                 ", url='" + url + '\'' +
-                ", numberOfPages=" + numberOfPages +
-                ", cover=" + cover +
-                ", subjects=" + Arrays.toString(subjects) +
-                ", publishDate='" + publishDate + '\'' +
-                ", authors=" + Arrays.toString(authors) +
-                ", excerpts=" + Arrays.toString(excerpts) +
-                ", publishPlaces=" + Arrays.toString(publishPlaces) +
                 '}';
     }
 

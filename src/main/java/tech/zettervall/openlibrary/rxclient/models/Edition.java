@@ -214,27 +214,6 @@ public final class Edition implements Comparable<Edition> {
         return "Edition{" +
                 "title='" + title + '\'' +
                 ", revision=" + revision +
-                ", publishers=" + Arrays.toString(publishers) +
-                ", numberOfPages=" + numberOfPages +
-                ", isbn10=" + Arrays.toString(isbn10) +
-                ", covers=" + Arrays.toString(covers) +
-                ", lastModified=" + lastModified +
-                ", latestRevision=" + latestRevision +
-                ", key='" + key + '\'' +
-                ", authors=" + Arrays.toString(authors) +
-                ", ocaId='" + ocaId + '\'' +
-                ", contributions=" + Arrays.toString(contributions) +
-                ", languages=" + Arrays.toString(languages) +
-                ", classifications=" + classifications +
-                ", sourceRecords=" + Arrays.toString(sourceRecords) +
-                ", identifiers=" + identifiers +
-                ", created=" + created +
-                ", isbn13=" + Arrays.toString(isbn13) +
-                ", localId=" + Arrays.toString(localId) +
-                ", publishDate='" + publishDate + '\'' +
-                ", works=" + Arrays.toString(works) +
-                ", type=" + type +
-                ", firstSentence=" + firstSentence +
                 '}';
     }
 

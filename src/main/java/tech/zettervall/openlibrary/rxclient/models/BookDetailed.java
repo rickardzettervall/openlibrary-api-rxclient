@@ -64,7 +64,9 @@ public final class BookDetailed extends Book {
     @Override
     public String toString() {
         return "BookDetailed{" +
-                "details=" + details +
+                "bibKey='" + bibKey + '\'' +
+                ", infoUrl='" + infoUrl + '\'' +
+                ", details=" + details +
                 '}';
     }
 
@@ -359,40 +361,9 @@ public final class BookDetailed extends Book {
         @Override
         public String toString() {
             return "Details{" +
-                    "numberOfPages=" + numberOfPages +
-                    ", tableOfContents=" + Arrays.toString(tableOfContents) +
-                    ", weight='" + weight + '\'' +
-                    ", covers=" + Arrays.toString(covers) +
-                    ", lcClassifications=" + Arrays.toString(lcClassifications) +
-                    ", latestRevision=" + latestRevision +
-                    ", sourceRecords=" + Arrays.toString(sourceRecords) +
-                    ", title='" + title + '\'' +
-                    ", languages=" + Arrays.toString(languages) +
-                    ", subjects=" + Arrays.toString(subjects) +
-                    ", publishCountry='" + publishCountry + '\'' +
-                    ", byStatement='" + byStatement + '\'' +
-                    ", oclcNumbers=" + Arrays.toString(oclcNumbers) +
-                    ", type=" + type +
-                    ", physicalDimensions='" + physicalDimensions + '\'' +
-                    ", revision=" + revision +
-                    ", publishers=" + Arrays.toString(publishers) +
-                    ", description='" + description + '\'' +
-                    ", physicalFormat='" + physicalFormat + '\'' +
-                    ", lastModified=" + lastModified +
+                    "type=" + type +
                     ", key='" + key + '\'' +
-                    ", authors=" + Arrays.toString(authors) +
-                    ", publishPlaces=" + Arrays.toString(publishPlaces) +
-                    ", pagination='" + pagination + '\'' +
-                    ", classifications=" + classifications +
-                    ", created=" + created +
-                    ", lccn=" + Arrays.toString(lccn) +
-                    ", notes='" + notes + '\'' +
-                    ", identifiers=" + identifiers +
-                    ", isbn13=" + Arrays.toString(isbn13) +
-                    ", deweyDecimalClass=" + Arrays.toString(deweyDecimalClass) +
-                    ", isbn10=" + Arrays.toString(isbn10) +
-                    ", publishDate='" + publishDate + '\'' +
-                    ", works=" + Arrays.toString(works) +
+                    ", title='" + title + '\'' +
                     '}';
         }
 

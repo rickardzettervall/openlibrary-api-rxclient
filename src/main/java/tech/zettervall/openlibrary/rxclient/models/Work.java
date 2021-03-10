@@ -2,8 +2,6 @@ package tech.zettervall.openlibrary.rxclient.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Arrays;
-
 public final class Work implements Comparable<Work> {
 
     @SerializedName("title")
@@ -135,25 +133,9 @@ public final class Work implements Comparable<Work> {
 
     @Override
     public String toString() {
-        String shortDescription = description;
-        if (description.length() > 100) {
-            shortDescription = description.substring(0, 100).trim() + "..";
-        }
-        return "Book{" +
-                "title='" + title + '\'' +
-                ", description='" + shortDescription + '\'' +
-                ", covers=" + Arrays.toString(covers) +
-                ", subjectPlaces=" + Arrays.toString(subjectPlaces) +
-                ", subjects=" + Arrays.toString(subjects) +
-                ", subjectPeople=" + Arrays.toString(subjectPeople) +
-                ", key='" + key + '\'' +
-                ", authors=" + Arrays.toString(authors) +
-                ", subjectTimes=" + Arrays.toString(subjectTimes) +
-                ", type='" + type + '\'' +
-                ", latestRevision=" + latestRevision +
+        return "Work{" +
+                ", title='" + title + '\'' +
                 ", revision=" + revision +
-                ", created=" + created +
-                ", lastModified=" + lastModified +
                 '}';
     }
 

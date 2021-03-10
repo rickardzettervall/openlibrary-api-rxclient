@@ -119,7 +119,7 @@ public final class Repository {
                 response = openLibraryApi.search(reformattedQuery, null, null, page);
         }
         return response.flatMap(result -> {
-            if (result.getDocs().length == 0) {
+            if (result.getResults().length == 0) {
                 throw new Exception(HTTP_404);
             }
             return Single.just(result);

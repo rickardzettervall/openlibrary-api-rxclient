@@ -240,8 +240,8 @@ public class OpenLibraryClientTest {
                 .blockingSubscribe(new DisposableSingleObserver<SearchResult>() {
                     @Override
                     public void onSuccess(@NonNull SearchResult searchResult) {
-                        assertEquals(100, searchResult.getDocs().length);
-                        assertTrue(searchResult.getDocs()[0].getTitle().toLowerCase().contains("the lord of the rings"));
+                        assertEquals(100, searchResult.getResults().length);
+                        assertTrue(searchResult.getResults()[0].getTitle().toLowerCase().contains("the lord of the rings"));
                         System.out.println("Received: " + searchResult.toString());
                     }
 
@@ -261,8 +261,8 @@ public class OpenLibraryClientTest {
                 .blockingSubscribe(new DisposableSingleObserver<SearchResult>() {
                     @Override
                     public void onSuccess(@NonNull SearchResult searchResult) {
-                        assertEquals(100, searchResult.getDocs().length);
-                        assertTrue(searchResult.getDocs()[0].getTitle().toLowerCase().contains("the lord of the rings"));
+                        assertEquals(100, searchResult.getResults().length);
+                        assertTrue(searchResult.getResults()[0].getTitle().toLowerCase().contains("the lord of the rings"));
                         System.out.println("Received: " + searchResult.toString());
                     }
 
@@ -282,8 +282,8 @@ public class OpenLibraryClientTest {
                 .blockingSubscribe(new DisposableSingleObserver<SearchResult>() {
                     @Override
                     public void onSuccess(@NonNull SearchResult searchResult) {
-                        assertEquals(100, searchResult.getDocs().length);
-                        assertTrue(Arrays.toString(searchResult.getDocs()[0].getAuthorsNames()).toLowerCase().contains("tolkien"));
+                        assertEquals(100, searchResult.getResults().length);
+                        assertTrue(Arrays.toString(searchResult.getResults()[0].getAuthorNames()).toLowerCase().contains("tolkien"));
                         System.out.println("Received: " + searchResult.toString());
                     }
 
