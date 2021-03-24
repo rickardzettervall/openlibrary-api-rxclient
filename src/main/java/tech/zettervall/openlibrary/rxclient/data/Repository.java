@@ -106,7 +106,7 @@ public final class Repository {
     public Single<SearchResult> search(@NonNull SearchType searchType,
                                        @NonNull String query,
                                        @Nullable Integer page) {
-        String reformattedQuery = query.replaceAll(" ", "+");
+        String reformattedQuery = query.trim().replaceAll(" +", "+");
         Single<SearchResult> response;
         switch (searchType) {
             case TITLE:
