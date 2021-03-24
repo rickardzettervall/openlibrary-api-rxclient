@@ -7,6 +7,7 @@ import tech.zettervall.openlibrary.rxclient.models.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class Repository {
 
@@ -72,9 +73,8 @@ public final class Repository {
      */
     public <T extends Book> Single<List<T>> getBooks(@NonNull Class<T> bookClass,
                                                      @NonNull String... identifiers) {
-        String identifier = Arrays.toString(identifiers)
-                .substring(1, Arrays.toString(identifiers).length() - 1)
-                .replaceAll(" ", "");
+        String identifier = Arrays.stream(identifiers).map(String::trim)
+                .collect(Collectors.joining(","));
         String jsCmd;
         if (bookClass == BookData.class) {
             jsCmd = JSCMD_DATA;
