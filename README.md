@@ -7,6 +7,7 @@ and getting the received data as RxJava observables.
 <li>Books (<a href="https://openlibrary.org/dev/docs/api/books" target="_blank">https://openlibrary.org/dev/docs/api/books</a>)</li>
 <li>Covers (<a href="https://openlibrary.org/dev/docs/api/covers" target="_blank">https://openlibrary.org/dev/docs/api/covers</a>)</li>
 <li>Search (<a href="https://openlibrary.org/dev/docs/api/search" target="_blank">https://openlibrary.org/dev/docs/api/search</a>)</li>
+<li>Subjects (<a href="https://openlibrary.org/dev/docs/api/subjects" target="_blank">https://openlibrary.org/dev/docs/api/subjects</a>)</li>
 
 <h3>Getting started</h3>
 
