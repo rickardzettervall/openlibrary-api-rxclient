@@ -7,7 +7,10 @@ import tech.zettervall.openlibrary.rxclient.models.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static io.reactivex.rxjava3.core.Single.just;
 
 public final class Repository {
 
@@ -88,7 +91,7 @@ public final class Repository {
                     if (jsonObject.keySet().size() == 0) {
                         throw new Exception(HTTP_404);
                     }
-                    return Single.just(Book.jsonConverter(bookClass, jsonObject));
+                    return just(Book.jsonConverter(bookClass, jsonObject));
                 });
     }
 
@@ -122,8 +125,75 @@ public final class Repository {
             if (result.getResults().length == 0) {
                 throw new Exception(HTTP_404);
             }
-            return Single.just(result);
+            return just(result);
         });
+    }
+
+    /**
+     * Get Works by Subject from Open Library API.
+     * "This API is experimental. Please be aware that this may change in future."
+     *
+     * @param subject             The Subject to query.
+     * @param eBooks              Set to true to only include the works which have an e-book in the response.
+     * @param publishedRangeStart Filter on published year range, start year.
+     * @param publishedRangeEnd   Filter on published year range, end year.
+     * @param limit               Number of works to include in the response.
+     * @param offset              Starting offset in the total works, used for pagination.
+     */
+    public Single<Subject> getSubject(
+            @NonNull String subject,
+            @Nullable Boolean eBooks,
+            @Nullable Integer publishedRangeStart,
+            @Nullable Integer publishedRangeEnd,
+            @Nullable Integer limit,
+            @Nullable Integer offset) {
+        return openLibraryApi.getSubject(
+                subject,
+                eBooks,
+                getPublishedRangeString(publishedRangeStart, publishedRangeEnd),
+                limit,
+                offset);
+    }
+
+    /**
+     * Get Works by Subject (Detailed) from Open Library API.
+     * "This API is experimental. Please be aware that this may change in future."
+     *
+     * @param subject             The Subject to query.
+     * @param eBooks              Set to true to only include the works which have an e-book in the response.
+     * @param publishedRangeStart Filter on published year range, start year.
+     * @param publishedRangeEnd   Filter on published year range, end year.
+     * @param limit               Number of works to include in the response.
+     * @param offset              Starting offset in the total works, used for pagination.
+     */
+    public Single<SubjectDetailed> getSubjectDetailed(
+            @NonNull String subject,
+            @Nullable Boolean eBooks,
+            @Nullable Integer publishedRangeStart,
+            @Nullable Integer publishedRangeEnd,
+            @Nullable Integer limit,
+            @Nullable Integer offset
+    ) {
+        return openLibraryApi.getSubjectDetailed(
+                subject,
+                eBooks,
+                getPublishedRangeString(publishedRangeStart, publishedRangeEnd),
+                limit,
+                offset,
+                true);
+    }
+
+    /**
+     * Get published range String for Subject API calls.
+     *
+     * @param range e.g. 1990, 2000 or just 1990.
+     */
+    public String getPublishedRangeString(Integer... range) throws IllegalArgumentException {
+        if (range.length > 2) {
+            throw new IllegalArgumentException("Range must be of max length 2");
+        }
+        String str = Arrays.stream(range).filter(Objects::nonNull).map(Object::toString).collect(Collectors.joining("-"));
+        return !str.isEmpty() ? str : null;
     }
 
     /**

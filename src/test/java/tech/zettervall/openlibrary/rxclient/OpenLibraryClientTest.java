@@ -312,4 +312,53 @@ public class OpenLibraryClientTest {
                     }
                 });
     }
+
+    /**
+     * Test a successful API fetch of Subject.
+     */
+    @Test
+    public void subjectSuccess() {
+        openLibraryClient.getRepository().getSubject("cats", null, null, 2000, null, null)
+                .blockingSubscribe(new DisposableSingleObserver<Subject>() {
+                    @Override
+                    public void onSuccess(@NonNull Subject subject) {
+                        assertTrue(subject.getWorkCount() > 0);
+                        assertTrue(subject.getWorks().length > 0);
+                        System.out.println("Received: " + subject.toString());
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        fail();
+                    }
+                });
+    }
+
+    /**
+     * Test a successful API fetch of SubjectDetailed.
+     */
+    @Test
+    public void subjectDetailedSuccess() {
+        openLibraryClient.getRepository().getSubjectDetailed("cats", null, null, null, null, null)
+                .blockingSubscribe(new DisposableSingleObserver<SubjectDetailed>() {
+                    @Override
+                    public void onSuccess(@NonNull SubjectDetailed subjectDetailed) {
+                        assertTrue(subjectDetailed.getWorkCount() > 0);
+                        assertTrue(subjectDetailed.getWorks().length > 0);
+                        assertTrue(subjectDetailed.getAuthors().length > 0);
+                        assertTrue(subjectDetailed.getPublishers().length > 0);
+                        assertTrue(subjectDetailed.getSubjects().length > 0);
+                        assertTrue(subjectDetailed.getPeople().length > 0);
+                        assertTrue(subjectDetailed.getPlaces().length > 0);
+                        assertTrue(subjectDetailed.getTimes().length > 0);
+                        assertTrue(subjectDetailed.getPublishingHistory().length > 0);
+                        System.out.println("Received: " + subjectDetailed.toString());
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        fail();
+                    }
+                });
+    }
 }

@@ -4,10 +4,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 @RunWith(JUnit4.class)
 public class RepositoryTest {
+
+    private final Repository repository = new Repository();
 
     /**
      * Test cover URL assembler.
@@ -28,5 +30,17 @@ public class RepositoryTest {
 
         String olidL = Repository.getCoverUrl(Repository.CoverKey.OLID, "x", Repository.CoverSize.L, false);
         assertEquals("http://covers.openlibrary.org/b/olid/x-L.jpg?default=false", olidL);
+    }
+
+    /**
+     * Test published range String creator.
+     */
+    @Test
+    public void publishedRange() {
+        assertEquals("1990-1992", repository.getPublishedRangeString(1990, 1992));
+        assertEquals("1990", repository.getPublishedRangeString(1990, null));
+        assertEquals("1992", repository.getPublishedRangeString(null, 1992));
+        assertNull(repository.getPublishedRangeString(null, null));
+        assertThrows(IllegalArgumentException.class, () -> repository.getPublishedRangeString(1, 2, 3));
     }
 }
