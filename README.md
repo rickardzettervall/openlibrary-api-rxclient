@@ -6,7 +6,7 @@ and getting the received data as RxJava observables.
 <a href="https://dev.odenapps.com/job/Rickard%20Zettervall/job/openlibrary-api-rxclient/job/master/" target="_blank"><img src="https://dev.odenapps.com/buildStatus/icon?job=Rickard+Zettervall%2Fopenlibrary-api-rxclient%2Fmaster"></a>
 <a href="https://jitpack.io/#rickardzettervall/openlibrary-api-rxclient/" target="_blank"><img src="https://jitpack.io/v/rickardzettervall/openlibrary-api-rxclient.svg"></a>
 
-<h3>Supported APIs:</h3>
+<h3>Supported APIs</h3>
 <li>Books (<a href="https://openlibrary.org/dev/docs/api/books" target="_blank">https://openlibrary.org/dev/docs/api/books</a>)</li>
 <li>Covers (<a href="https://openlibrary.org/dev/docs/api/covers" target="_blank">https://openlibrary.org/dev/docs/api/covers</a>)</li>
 <li>Search (<a href="https://openlibrary.org/dev/docs/api/search" target="_blank">https://openlibrary.org/dev/docs/api/search</a>)</li>
@@ -37,23 +37,29 @@ More setup options can be found over at <a href="https://jitpack.io/#rickardzett
     // Get instance
     OpenLibraryClient client = OpenLibraryClient.getInstance();
     
-    // Get observable from Respository
-    Single<List<BookView>> observableSingle = client.getRepository().getBooks(BookView.class, "ISBN:0385472579", "LCCN:62019420");
-    
     // Implement your own RxJava observer, e.g.
-    // (please note that this example blocks the main thread)
-    observableSingle.blockingSubscribe(
-                new DisposableSingleObserver<List<BookView>>() {
-                    @Override
-                    public void onSuccess(@NonNull List<BookView> bookViews) {
-                        // Do stuff
-                    }
+    OpenLibraryClient client = OpenLibraryClient.getInstance();
+        DisposableSingleObserver<List<BookView>> disposable =
+                client.getRepository().getBooks(BookView.class, "ISBN:0385472579", "LCCN:62019420")
+                        .observeOn(Schedulers.from(ContextCompat.getMainExecutor(this)))
+                        .subscribeOn(Schedulers.io())
+                        .subscribeWith(new DisposableSingleObserver<List<BookView>>() {
+                            @Override
+                            public void onSuccess(@NonNull List<BookView> bookViews) {
+                                // Do stuff
+                            }
 
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        // Do stuff
-                    }
-                });
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+                                // Do stuff
+                            }
+                        });
+
+<h3>Android</h3>
+
+Add internet permission to your AndroidManifest.xml file:
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 <h2>License</h2>
 
