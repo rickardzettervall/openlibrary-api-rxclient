@@ -48,7 +48,7 @@ public class OpenLibraryClientTest {
      * Test a successful API fetch of Work.
      */
     @Test
-    public void workSuccess() {
+    public void getWorkSuccess() {
         openLibraryClient.getRepository().getWork("OL45883W")
                 .blockingSubscribe(new DisposableSingleObserver<Work>() {
                     @Override
@@ -68,7 +68,7 @@ public class OpenLibraryClientTest {
      * Test a failed API fetch of Work.
      */
     @Test
-    public void workFail() {
+    public void getWorkFail() {
         openLibraryClient.getRepository().getWork("")
                 .blockingSubscribe(new DisposableSingleObserver<Work>() {
                     @Override
@@ -87,7 +87,7 @@ public class OpenLibraryClientTest {
      * Test a successful API fetch of Edition.
      */
     @Test
-    public void editionSuccess() {
+    public void getEditionSuccess() {
         openLibraryClient.getRepository().getEdition("OL7353617M")
                 .blockingSubscribe(new DisposableSingleObserver<Edition>() {
                     @Override
@@ -107,7 +107,7 @@ public class OpenLibraryClientTest {
      * Test a successful API fetch of Edition by ISBN.
      */
     @Test
-    public void editionByISBNSuccess() {
+    public void getEditionByISBNSuccess() {
         openLibraryClient.getRepository().getEditionByISBN("9780140328721")
                 .blockingSubscribe(new DisposableSingleObserver<Edition>() {
                     @Override
@@ -127,7 +127,7 @@ public class OpenLibraryClientTest {
      * Test a failed API fetch of Edition.
      */
     @Test
-    public void editionFail() {
+    public void getEditionFail() {
         openLibraryClient.getRepository().getEdition("")
                 .blockingSubscribe(new DisposableSingleObserver<Edition>() {
                     @Override
@@ -146,7 +146,7 @@ public class OpenLibraryClientTest {
      * Test a successful API fetch of BookView.
      */
     @Test
-    public void bookViewSuccess() {
+    public void getBookViewSuccess() {
         openLibraryClient.getRepository().getBooks(
                 BookView.class, "ISBN:0385472579", "LCCN:62019420"
         ).blockingSubscribe(new DisposableSingleObserver<List<BookView>>() {
@@ -169,7 +169,7 @@ public class OpenLibraryClientTest {
      * Test a successful API fetch of BookData.
      */
     @Test
-    public void bookDataSuccess() {
+    public void getBookDataSuccess() {
         openLibraryClient.getRepository().getBooks(
                 BookData.class, "ISBN:0385472579", "LCCN:62019420"
         ).blockingSubscribe(new DisposableSingleObserver<List<BookData>>() {
@@ -192,7 +192,7 @@ public class OpenLibraryClientTest {
      * Test a successful API fetch of BookDetailed.
      */
     @Test
-    public void bookDetailedSuccess() {
+    public void getBookDetailedSuccess() {
         openLibraryClient.getRepository().getBooks(
                 BookDetailed.class, "ISBN:9780980200447", "ISBN:9780982615416"
         ).blockingSubscribe(new DisposableSingleObserver<List<BookDetailed>>() {
@@ -215,7 +215,7 @@ public class OpenLibraryClientTest {
      * Test a failed API fetch of BookView.
      */
     @Test
-    public void bookViewFail() {
+    public void getBookViewFail() {
         openLibraryClient.getRepository().getBooks(
                 BookView.class, ""
         ).blockingSubscribe(new DisposableSingleObserver<List<BookView>>() {
@@ -317,7 +317,7 @@ public class OpenLibraryClientTest {
      * Test a successful API fetch of Subject.
      */
     @Test
-    public void subjectSuccess() {
+    public void getSubjectSuccess() {
         openLibraryClient.getRepository().getSubject(
                 Subject.class,
                 "cats",
@@ -345,7 +345,7 @@ public class OpenLibraryClientTest {
      * Test a successful API fetch of SubjectDetailed.
      */
     @Test
-    public void subjectDetailedSuccess() {
+    public void getSubjectDetailedSuccess() {
         openLibraryClient.getRepository().getSubject(
                 SubjectDetailed.class,
                 "cats",

@@ -39,6 +39,15 @@ public final class SubjectDetailed extends Subject {
         this.publishingHistory = publishingHistory;
     }
 
+    /**
+     * Factory for testing, should only set field used in Comparable.
+     */
+    public static SubjectDetailed newSubjectDetailedForTesting(String name) {
+        return new SubjectDetailed(null, name, null, 0, null,
+                null, null, null, null, null,
+                null, null);
+    }
+
     public Author[] getAuthors() {
         return authors;
     }

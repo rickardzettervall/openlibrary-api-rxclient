@@ -20,7 +20,7 @@ public class EditionTest {
      * Test the natural sorting of Edition Objects.
      */
     @Test
-    public void naturalSorting() {
+    public void compareTo() {
         List<Edition> editions = new ArrayList<>();
         editions.add(Edition.newEditionForTesting("B", 1));
         editions.add(Edition.newEditionForTesting("A", 2));

@@ -20,20 +20,20 @@ public class BookDataTest {
      * Test the natural sorting of Book Objects.
      */
     @Test
-    public void naturalSorting() {
-        List<BookData> bookList = new ArrayList<>();
-        bookList.add(BookData.newBookDataForTesting("C"));
-        bookList.add(BookData.newBookDataForTesting("A"));
-        bookList.add(BookData.newBookDataForTesting("B"));
-        Collections.sort(bookList);
+    public void compareTo() {
+        List<BookData> books = new ArrayList<>();
+        books.add(BookData.newBookDataForTesting("C"));
+        books.add(BookData.newBookDataForTesting("A"));
+        books.add(BookData.newBookDataForTesting("B"));
+        Collections.sort(books);
 
         // A
-        assertEquals("A", bookList.get(0).getTitle());
+        assertEquals("A", books.get(0).getTitle());
 
         // B
-        assertEquals("B", bookList.get(1).getTitle());
+        assertEquals("B", books.get(1).getTitle());
 
         // C
-        assertEquals("C", bookList.get(2).getTitle());
+        assertEquals("C", books.get(2).getTitle());
     }
 }

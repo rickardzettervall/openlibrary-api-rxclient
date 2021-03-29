@@ -15,7 +15,7 @@ public class RepositoryTest {
      * Test cover URL assembler.
      */
     @Test
-    public void coverUrl() {
+    public void getCoverUrl() {
         String isbnS = Repository.getCoverUrl(Repository.CoverKey.ISBN, "x", Repository.CoverSize.S, true);
         assertEquals("http://covers.openlibrary.org/b/isbn/x-S.jpg", isbnS);
 
@@ -36,7 +36,7 @@ public class RepositoryTest {
      * Test published range String creator.
      */
     @Test
-    public void publishedRange() {
+    public void getPublishedRangeString() {
         assertEquals("1990-1992", repository.getPublishedRangeString(1990, 1992));
         assertEquals("1990", repository.getPublishedRangeString(1990, null));
         assertEquals("1992", repository.getPublishedRangeString(null, 1992));

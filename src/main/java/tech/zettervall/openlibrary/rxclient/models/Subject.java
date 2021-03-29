@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
-public class Subject {
+public class Subject implements Comparable<Subject> {
 
     @SerializedName("key")
     private final String key;
@@ -27,6 +27,13 @@ public class Subject {
         this.subjectType = subjectType;
         this.workCount = workCount;
         this.works = works;
+    }
+
+    /**
+     * Factory for testing, should only set field used in Comparable.
+     */
+    public static Subject newSubjectForTesting(String name) {
+        return new Subject(null, name, null, 0, null);
     }
 
     public String getKey() {
@@ -56,6 +63,14 @@ public class Subject {
                 ", name='" + name + '\'' +
                 ", workCount=" + workCount +
                 '}';
+    }
+
+    /**
+     * Natural sorting by title.
+     */
+    @Override
+    public int compareTo(Subject subject) {
+        return name.compareTo(subject.getName());
     }
 
     /**
