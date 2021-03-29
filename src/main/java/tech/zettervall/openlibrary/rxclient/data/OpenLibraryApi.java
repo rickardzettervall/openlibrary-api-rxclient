@@ -5,7 +5,9 @@ import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import tech.zettervall.openlibrary.rxclient.models.*;
+import tech.zettervall.openlibrary.rxclient.models.Edition;
+import tech.zettervall.openlibrary.rxclient.models.SearchResult;
+import tech.zettervall.openlibrary.rxclient.models.Work;
 
 /**
  * Open Library API.
@@ -95,30 +97,11 @@ interface OpenLibraryApi {
      * @param published Filter on published year range, e.g. 1990-2000 or just 1990.
      * @param limit     Number of works to include in the response.
      * @param offset    Starting offset in the total works, used for pagination.
+     * @param details   Query for more detailed result.
      * @return Observable Single<Subject>
      */
     @GET("subjects/{subject}.json")
-    Single<Subject> getSubject(
-            @Path("subject") String subject,
-            @Query("ebooks") Boolean eBooks,
-            @Query("published_in") String published,
-            @Query("limit") Integer limit,
-            @Query("offset") Integer offset
-    );
-
-    /**
-     * Subjects API, detailed version.
-     * "This API is experimental. Please be aware that this may change in future."
-     *
-     * @param subject   The Subject to query.
-     * @param eBooks    Set to true to only include the works which have an e-book in the response.
-     * @param published Filter on published year range, e.g. 1990-2000 or just 1990.
-     * @param limit     Number of works to include in the response.
-     * @param offset    Starting offset in the total works, used for pagination.
-     * @return Observable Single<SubjectDetailed>
-     */
-    @GET("subjects/{subject}.json")
-    Single<SubjectDetailed> getSubjectDetailed(
+    Single<JsonObject> getSubject(
             @Path("subject") String subject,
             @Query("ebooks") Boolean eBooks,
             @Query("published_in") String published,

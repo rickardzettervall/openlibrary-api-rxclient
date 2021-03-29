@@ -133,6 +133,7 @@ public final class Repository {
      * Get Works by Subject from Open Library API.
      * "This API is experimental. Please be aware that this may change in future."
      *
+     * @param subjectClass        Subject class to receive as response object.
      * @param subject             The Subject to query.
      * @param eBooks              Set to true to only include the works which have an e-book in the response.
      * @param publishedRangeStart Filter on published year range, start year.
@@ -140,7 +141,8 @@ public final class Repository {
      * @param limit               Number of works to include in the response.
      * @param offset              Starting offset in the total works, used for pagination.
      */
-    public Single<Subject> getSubject(
+    public <T extends Subject> Single<T> getSubject(
+            @NonNull Class<T> subjectClass,
             @NonNull String subject,
             @Nullable Boolean eBooks,
             @Nullable Integer publishedRangeStart,
@@ -152,35 +154,15 @@ public final class Repository {
                 eBooks,
                 getPublishedRangeString(publishedRangeStart, publishedRangeEnd),
                 limit,
-                offset);
-    }
-
-    /**
-     * Get Works by Subject (Detailed) from Open Library API.
-     * "This API is experimental. Please be aware that this may change in future."
-     *
-     * @param subject             The Subject to query.
-     * @param eBooks              Set to true to only include the works which have an e-book in the response.
-     * @param publishedRangeStart Filter on published year range, start year.
-     * @param publishedRangeEnd   Filter on published year range, end year.
-     * @param limit               Number of works to include in the response.
-     * @param offset              Starting offset in the total works, used for pagination.
-     */
-    public Single<SubjectDetailed> getSubjectDetailed(
-            @NonNull String subject,
-            @Nullable Boolean eBooks,
-            @Nullable Integer publishedRangeStart,
-            @Nullable Integer publishedRangeEnd,
-            @Nullable Integer limit,
-            @Nullable Integer offset
-    ) {
-        return openLibraryApi.getSubjectDetailed(
-                subject,
-                eBooks,
-                getPublishedRangeString(publishedRangeStart, publishedRangeEnd),
-                limit,
                 offset,
-                true);
+                (subjectClass == SubjectDetailed.class ? true : null))
+                .flatMap(jsonObject -> {
+                    if (jsonObject.keySet().size() == 0) {
+                        throw new Exception(HTTP_404);
+                    } else {
+                        return just(Subject.jsonConverter(subjectClass, jsonObject));
+                    }
+                });
     }
 
     /**

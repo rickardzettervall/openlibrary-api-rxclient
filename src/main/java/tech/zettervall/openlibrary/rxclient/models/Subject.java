@@ -1,5 +1,7 @@
 package tech.zettervall.openlibrary.rxclient.models;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
 public class Subject {
@@ -54,5 +56,12 @@ public class Subject {
                 ", name='" + name + '\'' +
                 ", workCount=" + workCount +
                 '}';
+    }
+
+    /**
+     * Convert Subject API response to Subject.
+     */
+    public static <T extends Subject> T jsonConverter(Class<T> subjectClass, JsonObject obj) {
+        return new Gson().fromJson(obj, subjectClass);
     }
 }

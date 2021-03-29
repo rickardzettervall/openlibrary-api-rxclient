@@ -318,7 +318,14 @@ public class OpenLibraryClientTest {
      */
     @Test
     public void subjectSuccess() {
-        openLibraryClient.getRepository().getSubject("cats", null, null, 2000, null, null)
+        openLibraryClient.getRepository().getSubject(
+                Subject.class,
+                "cats",
+                null,
+                null,
+                2000,
+                null,
+                null)
                 .blockingSubscribe(new DisposableSingleObserver<Subject>() {
                     @Override
                     public void onSuccess(@NonNull Subject subject) {
@@ -339,7 +346,14 @@ public class OpenLibraryClientTest {
      */
     @Test
     public void subjectDetailedSuccess() {
-        openLibraryClient.getRepository().getSubjectDetailed("cats", null, null, null, null, null)
+        openLibraryClient.getRepository().getSubject(
+                SubjectDetailed.class,
+                "cats",
+                null,
+                null,
+                null,
+                null,
+                null)
                 .blockingSubscribe(new DisposableSingleObserver<SubjectDetailed>() {
                     @Override
                     public void onSuccess(@NonNull SubjectDetailed subjectDetailed) {
