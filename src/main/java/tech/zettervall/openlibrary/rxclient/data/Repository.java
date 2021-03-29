@@ -5,6 +5,7 @@ import io.reactivex.rxjava3.annotations.Nullable;
 import io.reactivex.rxjava3.core.Single;
 import tech.zettervall.openlibrary.rxclient.models.*;
 
+import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -31,6 +32,7 @@ public final class Repository {
      * umbrella information about a book."
      *
      * @param workID ID of Work.
+     * @return Observable Single response of Work.
      */
     public Single<Work> getWork(@NonNull String workID) {
         return openLibraryApi.getWork(workID, FORMAT_JSON);
@@ -44,6 +46,7 @@ public final class Repository {
      * other specific information."
      *
      * @param editionID ID of Edition.
+     * @return Observable Single response of Edition.
      */
     public Single<Edition> getEdition(@NonNull String editionID) {
         return openLibraryApi.getEdition(editionID, FORMAT_JSON);
@@ -57,6 +60,7 @@ public final class Repository {
      * other specific information."
      *
      * @param isbn Valid ISBN (10 or 13).
+     * @return Observable Single response of Edition.
      */
     public Single<Edition> getEditionByISBN(@NonNull String isbn) {
         return openLibraryApi.getEditionByIsbn(isbn, FORMAT_JSON);
@@ -71,11 +75,19 @@ public final class Repository {
      *
      * It is advised to use BookView or BookData, BookDetail is a less stable format.
      *
-     * @param bookClass   Decides what type of details each queried Book should have.
+     * @param bookClass   Book class to receive as response object,
+     *                    BookView.class = Least details.
+     *                    BookData.class = Default details.
+     *                    BookDetailed.class = Most details.
      * @param identifiers Book identifiers to query, e.g. ISBN:0201558025.
+     * @return Observable Single response of List<bookClass>.
      */
     public <T extends Book> Single<List<T>> getBooks(@NonNull Class<T> bookClass,
-                                                     @NonNull String... identifiers) {
+                                                     @NonNull String... identifiers)
+            throws InvalidParameterException {
+        if (bookClass == Book.class) {
+            throw new InvalidParameterException("Book.class not allowed as bookClass parameter");
+        }
         String identifier = Arrays.stream(identifiers).map(String::trim)
                 .collect(Collectors.joining(","));
         String jsCmd;
@@ -105,6 +117,7 @@ public final class Repository {
      *                   a parameter called numFound, this is the number of found matches.
      *                   Each page produce 100 results, e.g. no page (page 1) returns result 1-99,
      *                   page 2 returns results 100-199 and so on.
+     * @return Observable Single response of SearchResult.
      */
     public Single<SearchResult> search(@NonNull SearchType searchType,
                                        @NonNull String query,
@@ -140,6 +153,7 @@ public final class Repository {
      * @param publishedRangeEnd   Filter on published year range, end year.
      * @param limit               Number of works to include in the response.
      * @param offset              Starting offset in the total works, used for pagination.
+     * @return Observable Single response of subjectClass.
      */
     public <T extends Subject> Single<T> getSubject(
             @NonNull Class<T> subjectClass,
@@ -169,7 +183,9 @@ public final class Repository {
      * Get published range String for Subject API calls.
      *
      * @param range e.g. 1990, 2000 or just 1990.
+     * @return Valid year range String, null when no range is used.
      */
+    @Nullable
     public String getPublishedRangeString(Integer... range) throws IllegalArgumentException {
         if (range.length > 2) {
             throw new IllegalArgumentException("Range must be of max length 2");

@@ -97,8 +97,10 @@ interface OpenLibraryApi {
      * @param published Filter on published year range, e.g. 1990-2000 or just 1990.
      * @param limit     Number of works to include in the response.
      * @param offset    Starting offset in the total works, used for pagination.
-     * @param details   Query for more detailed result.
-     * @return Observable Single<Subject>
+     * @param details   Receive more detailed response: Related subjects, prominent publishers,
+     *                  prolific authors and publishing_history.
+     * @return JsonObject of the API response, generics isn't supported here so it's converted
+     * in Subject jsonConverter method.
      */
     @GET("subjects/{subject}.json")
     Single<JsonObject> getSubject(
