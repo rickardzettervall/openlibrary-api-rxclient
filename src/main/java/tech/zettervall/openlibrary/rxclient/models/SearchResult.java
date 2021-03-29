@@ -2,8 +2,6 @@ package tech.zettervall.openlibrary.rxclient.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Arrays;
-
 public final class SearchResult {
 
     @SerializedName("start")
