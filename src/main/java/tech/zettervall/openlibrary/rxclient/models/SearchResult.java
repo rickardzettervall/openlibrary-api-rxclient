@@ -35,10 +35,9 @@ public final class SearchResult {
 
     @Override
     public String toString() {
-        return "Search{" +
+        return "SearchResult{" +
                 "start='" + start + '\'' +
                 ", numFound=" + numFound +
-                ", results=" + Arrays.toString(results) +
                 '}';
     }
 

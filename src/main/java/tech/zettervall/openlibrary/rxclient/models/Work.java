@@ -134,6 +134,7 @@ public final class Work implements Comparable<Work> {
     @Override
     public String toString() {
         return "Work{" +
+                "key='" + key + '\'' +
                 ", title='" + title + '\'' +
                 ", revision=" + revision +
                 '}';
