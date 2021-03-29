@@ -1,4 +1,4 @@
-<h2>Open Library API RxClient</h2>
+<h1>Open Library API RxClient</h1>
 
 The Open Library API RxClient is a Java library for easily connecting to https://openlibrary.org/developers/api/
 and getting the received data as RxJava observables.
@@ -12,7 +12,7 @@ and getting the received data as RxJava observables.
 <li>Search (<a href="https://openlibrary.org/dev/docs/api/search" target="_blank">https://openlibrary.org/dev/docs/api/search</a>)</li>
 <li>Subjects (<a href="https://openlibrary.org/dev/docs/api/subjects" target="_blank">https://openlibrary.org/dev/docs/api/subjects</a>)</li>
 
-<h3>Setup (gradle)</h3>
+<h2>Setup (gradle)</h2>
 
 Add the following to your root build.gradle file:
 
@@ -32,7 +32,7 @@ Add the dependency to your project build.gradle file:
 
 More setup options can be found over at <a href="https://jitpack.io/#rickardzettervall/openlibrary-api-rxclient/">jitpack.io</a>.
 
-<h3>Getting started</h3>
+<h2>Getting started</h2>
 
     // Get instance
     OpenLibraryClient client = OpenLibraryClient.getInstance();
@@ -55,7 +55,7 @@ More setup options can be found over at <a href="https://jitpack.io/#rickardzett
                     }
                 });
 
-<h3>License</h3>
+<h2>License</h2>
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this repository except in compliance with the License.
