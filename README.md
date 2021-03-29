@@ -38,8 +38,7 @@ More setup options can be found over at <a href="https://jitpack.io/#rickardzett
     OpenLibraryClient client = OpenLibraryClient.getInstance();
     
     // Implement your own RxJava observer, e.g.
-    OpenLibraryClient client = OpenLibraryClient.getInstance();
-        DisposableSingleObserver<List<BookView>> disposable =
+    DisposableSingleObserver<List<BookView>> disposable =
                 client.getRepository().getBooks(BookView.class, "ISBN:0385472579", "LCCN:62019420")
                         .observeOn(Schedulers.from(ContextCompat.getMainExecutor(this)))
                         .subscribeOn(Schedulers.io())
