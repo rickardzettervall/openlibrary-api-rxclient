@@ -6,7 +6,7 @@ and getting the received data as RxJava observables.
 <a href="https://dev.odenapps.com/job/Rickard%20Zettervall/job/openlibrary-api-rxclient/job/master/" target="_blank"><img src="https://dev.odenapps.com/buildStatus/icon?job=Rickard+Zettervall%2Fopenlibrary-api-rxclient%2Fmaster"></a>
 <a href="https://jitpack.io/#rickardzettervall/openlibrary-api-rxclient/" target="_blank"><img src="https://jitpack.io/v/rickardzettervall/openlibrary-api-rxclient.svg"></a>
 
-<b><u>Supported APIs:</u></b>
+<h3>Supported APIs:</h3>
 <li>Books (<a href="https://openlibrary.org/dev/docs/api/books" target="_blank">https://openlibrary.org/dev/docs/api/books</a>)</li>
 <li>Covers (<a href="https://openlibrary.org/dev/docs/api/covers" target="_blank">https://openlibrary.org/dev/docs/api/covers</a>)</li>
 <li>Search (<a href="https://openlibrary.org/dev/docs/api/search" target="_blank">https://openlibrary.org/dev/docs/api/search</a>)</li>
@@ -30,7 +30,7 @@ Add the dependency to your project build.gradle file:
 	        implementation 'com.github.rickardzettervall:openlibrary-api-rxclient:0.1-beta'
 	}
 
-More setup options can be found over at <a href="https://jitpack.io/#rickardzettervall/openlibrary-api-rxclient/">jitpack.io</a>.
+More setup options can be found over at <a href="https://jitpack.io/#rickardzettervall/openlibrary-api-rxclient/" target="_blank">jitpack.io</a>.
 
 <h2>Getting started</h2>
 
