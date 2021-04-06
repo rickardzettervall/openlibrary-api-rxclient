@@ -73,7 +73,7 @@ public final class Repository {
      * requesting information on one or more books using ISBNs, OCLC Numbers,
      * LCCNs and OLIDs (Open Library IDs)."
      *
-     * It is advised to use BookView or BookData, BookDetail is a less stable format.
+     * It is advised to use BookView or BookData, BookDetailed is a less stable format.
      *
      * @param bookClass   Book class to receive as response object,
      *                    BookView.class = Least details.
