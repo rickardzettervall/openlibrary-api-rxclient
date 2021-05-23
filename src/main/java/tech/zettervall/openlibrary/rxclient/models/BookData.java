@@ -5,7 +5,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Arrays;
 
 /**
+ * API response Object.
  * Data version of Book, contains default information.
+ * Reference: https://openlibrary.org/dev/docs/api/books
  */
 public final class BookData extends Book implements Comparable<BookData> {
 

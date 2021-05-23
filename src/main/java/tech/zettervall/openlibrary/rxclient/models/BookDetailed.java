@@ -5,7 +5,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Arrays;
 
 /**
+ * API response Object.
  * Detailed version of Book, contains the most information.
+ * Reference: https://openlibrary.org/dev/docs/api/books
  */
 public final class BookDetailed extends Book {
 

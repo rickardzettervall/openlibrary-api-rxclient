@@ -3,7 +3,9 @@ package tech.zettervall.openlibrary.rxclient.models;
 import com.google.gson.annotations.SerializedName;
 
 /**
+ * API response Object.
  * View version of Book, contains very limited information.
+ * Reference: https://openlibrary.org/dev/docs/api/books
  */
 public final class BookView extends Book {
 

@@ -4,6 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Arrays;
 
+/**
+ * API response Object.
+ * Reference: https://openlibrary.org/dev/docs/api/books
+ */
 public final class Edition implements Comparable<Edition> {
 
     @SerializedName("publishers")

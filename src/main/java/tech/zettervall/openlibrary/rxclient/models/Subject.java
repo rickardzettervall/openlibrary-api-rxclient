@@ -4,6 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * API response Object.
+ * Reference: https://openlibrary.org/dev/docs/api/subjects
+ */
 public class Subject implements Comparable<Subject> {
 
     @SerializedName("key")

@@ -2,6 +2,10 @@ package tech.zettervall.openlibrary.rxclient.models;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * API response Object.
+ * Reference: https://openlibrary.org/dev/docs/api/subjects
+ */
 public final class SubjectDetailed extends Subject {
 
     @SerializedName("authors")
