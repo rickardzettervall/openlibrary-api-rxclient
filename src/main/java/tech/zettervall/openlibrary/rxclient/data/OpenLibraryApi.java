@@ -6,6 +6,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import tech.zettervall.openlibrary.rxclient.models.Edition;
+import tech.zettervall.openlibrary.rxclient.models.RecentChanges;
 import tech.zettervall.openlibrary.rxclient.models.SearchResult;
 import tech.zettervall.openlibrary.rxclient.models.Work;
 
@@ -110,5 +111,35 @@ interface OpenLibraryApi {
             @Query("limit") Integer limit,
             @Query("offset") Integer offset,
             @Query("details") Boolean details
+    );
+
+    /**
+     * RecentChanges API.
+     * "This API is experimental. Please be aware that this may change in future."
+     *
+     * @param path  Used to set custom path such as date and/or author merges.
+     * @param limit Set to only include (n) of recent changes.
+     * @param bots  Include or exclude changes made by bots (default is true).
+     * @return Observable Single<RecentChanges[]>
+     */
+    @GET("recentchanges/{path}.json")
+    Single<RecentChanges[]> getRecentChanges(
+            @Path("path") String path,
+            @Query("limit") Integer limit,
+            @Query("bots") Boolean bots
+    );
+
+    /**
+     * RecentChanges API.
+     * "This API is experimental. Please be aware that this may change in future."
+     *
+     * @param limit Set to only include (n) of recent changes.
+     * @param bots  Include or exclude changes made by bots (default is true).
+     * @return Observable Single<RecentChanges[]>
+     */
+    @GET("recentchanges.json")
+    Single<RecentChanges[]> getRecentChanges(
+            @Query("limit") Integer limit,
+            @Query("bots") Boolean bots
     );
 }

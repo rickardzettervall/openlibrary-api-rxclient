@@ -375,4 +375,46 @@ public class OpenLibraryClientTest {
                     }
                 });
     }
+
+    /**
+     * Test a successful API fetch of RecentChanges (with no custom path).
+     */
+    @Test
+    public void getRecentChangesWithoutCustomPathSuccess() {
+        openLibraryClient.getRepository().getRecentChanges(
+                false, 3, null, null, null, null
+        ).blockingSubscribe(new DisposableSingleObserver<RecentChanges[]>() {
+            @Override
+            public void onSuccess(@NonNull RecentChanges[] recentChanges) {
+                assertEquals(3, recentChanges.length);
+                System.out.println("Received: " + Arrays.toString(recentChanges));
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                fail();
+            }
+        });
+    }
+
+    /**
+     * Test a successful API fetch of RecentChanges (with custom path).
+     */
+    @Test
+    public void getRecentChangesWithCustomPathSuccess() {
+        openLibraryClient.getRepository().getRecentChanges(
+                false, 3, true, 2021, 1, 10
+        ).blockingSubscribe(new DisposableSingleObserver<RecentChanges[]>() {
+            @Override
+            public void onSuccess(@NonNull RecentChanges[] recentChanges) {
+                assertEquals(3, recentChanges.length);
+                System.out.println("Received: " + Arrays.toString(recentChanges));
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                fail();
+            }
+        });
+    }
 }

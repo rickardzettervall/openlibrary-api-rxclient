@@ -180,6 +180,63 @@ public final class Repository {
     }
 
     /**
+     * Get RecentChanges from Open Library API.
+     * "This API is experimental. Please be aware that this may change in future."
+     *
+     * @param bots         Include or exclude changes made by bots (default is true).
+     * @param limit        Set to only include (n) of recent changes.
+     * @param authorMerges Show recent Author merges (default is false).
+     * @param year         Changes in a specific year.
+     * @param month        Changes in a specific month (year must also be set).
+     * @param day          Changes in a specific day (year & month must also be set).
+     * @return Observable Single response of RecentChanges.
+     */
+    public Single<RecentChanges[]> getRecentChanges(@Nullable Boolean bots,
+                                                    @Nullable Integer limit,
+                                                    @Nullable Boolean authorMerges,
+                                                    @Nullable Integer year,
+                                                    @Nullable Integer month,
+                                                    @Nullable Integer day) throws InvalidParameterException {
+        if (authorMerges != null || year != null || month != null || day != null) { // Custom path
+            StringBuilder customPath = new StringBuilder();
+            if (year != null) {
+                customPath.append(year);
+            }
+            if (month != null) {
+                if (year != null) {
+                    customPath.append("/");
+                    if (month.toString().length() == 1) {
+                        customPath.append("0");
+                    }
+                    customPath.append(month);
+                } else {
+                    throw new InvalidParameterException("Must include year when using month parameter.");
+                }
+            }
+            if (day != null) {
+                if (year != null && month != null) {
+                    customPath.append("/");
+                    if (day.toString().length() == 1) {
+                        customPath.append("0");
+                    }
+                    customPath.append(day);
+                } else {
+                    throw new InvalidParameterException("Must include year & month when using day parameter.");
+                }
+            }
+            if (authorMerges != null && authorMerges) {
+                if (year != null) {
+                    customPath.append("/");
+                }
+                customPath.append("merge-authors");
+            }
+            return openLibraryApi.getRecentChanges(customPath.toString(), limit, bots);
+        } else { // Regular path
+            return openLibraryApi.getRecentChanges(limit, bots);
+        }
+    }
+
+    /**
      * Get published range String for Subject API calls.
      *
      * @param range e.g. 1990, 2000 or just 1990.
