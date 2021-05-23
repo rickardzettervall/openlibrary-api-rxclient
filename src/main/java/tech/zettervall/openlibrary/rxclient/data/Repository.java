@@ -35,7 +35,7 @@ public final class Repository {
      * @return Observable Single response of Work.
      */
     public Single<Work> getWork(@NonNull String workID) {
-        return openLibraryApi.getWork(workID, FORMAT_JSON);
+        return openLibraryApi.getWork(workID);
     }
 
     /**
@@ -49,7 +49,7 @@ public final class Repository {
      * @return Observable Single response of Edition.
      */
     public Single<Edition> getEdition(@NonNull String editionID) {
-        return openLibraryApi.getEdition(editionID, FORMAT_JSON);
+        return openLibraryApi.getEdition(editionID);
     }
 
     /**
@@ -63,7 +63,7 @@ public final class Repository {
      * @return Observable Single response of Edition.
      */
     public Single<Edition> getEditionByISBN(@NonNull String isbn) {
-        return openLibraryApi.getEditionByIsbn(isbn, FORMAT_JSON);
+        return openLibraryApi.getEditionByIsbn(isbn);
     }
 
     /**

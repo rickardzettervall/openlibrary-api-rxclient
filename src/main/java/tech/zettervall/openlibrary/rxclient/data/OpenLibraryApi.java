@@ -20,39 +20,33 @@ interface OpenLibraryApi {
      * Works API.
      *
      * @param workID Work ID, e.g OL45883W.
-     * @param format Must be "json".
      * @return Observable Single<Work>.
      */
-    @GET("works/{id}.{format}")
+    @GET("works/{id}.json")
     Single<Work> getWork(
-            @Path("id") String workID,
-            @Path("format") String format
+            @Path("id") String workID
     );
 
     /**
      * Editions API.
      *
      * @param editionID EditionsID, e.g. OL7353617M.
-     * @param format    Must be "json".
      * @return Observable Single<Edition>.
      */
-    @GET("books/{id}.{format}")
+    @GET("books/{id}.json")
     Single<Edition> getEdition(
-            @Path("id") String editionID,
-            @Path("format") String format
+            @Path("id") String editionID
     );
 
     /**
      * ISBN API.
      *
-     * @param isbn   Valid ISBN (10 or 13), e.g. 9780140328721.
-     * @param format Must be "json".
+     * @param isbn Valid ISBN (10 or 13), e.g. 9780140328721.
      * @return Observable Single<Edition>
      */
-    @GET("isbn/{isbn}.{format}")
+    @GET("isbn/{isbn}.json")
     Single<Edition> getEditionByIsbn(
-            @Path("isbn") String isbn,
-            @Path("format") String format
+            @Path("isbn") String isbn
     );
 
     /**

@@ -54,7 +54,7 @@ public class OpenLibraryClientTest {
                     @Override
                     public void onSuccess(@NonNull Work work) {
                         assertEquals(work.getKey(), "/works/OL45883W");
-                        System.out.println("Received: " + work.toString());
+                        System.out.println("Received: " + work);
                     }
 
                     @Override
@@ -93,7 +93,7 @@ public class OpenLibraryClientTest {
                     @Override
                     public void onSuccess(@NonNull Edition edition) {
                         assertEquals(edition.getKey(), "/books/OL7353617M");
-                        System.out.println("Received: " + edition.toString());
+                        System.out.println("Received: " + edition);
                     }
 
                     @Override
@@ -113,7 +113,7 @@ public class OpenLibraryClientTest {
                     @Override
                     public void onSuccess(@NonNull Edition edition) {
                         assertEquals(edition.getKey(), "/books/OL7353617M");
-                        System.out.println("Received: " + edition.toString());
+                        System.out.println("Received: " + edition);
                     }
 
                     @Override
@@ -242,7 +242,7 @@ public class OpenLibraryClientTest {
                     public void onSuccess(@NonNull SearchResult searchResult) {
                         assertEquals(100, searchResult.getResults().length);
                         assertTrue(searchResult.getResults()[0].getTitle().toLowerCase().contains("the lord of the rings"));
-                        System.out.println("Received: " + searchResult.toString());
+                        System.out.println("Received: " + searchResult);
                     }
 
                     @Override
@@ -263,7 +263,7 @@ public class OpenLibraryClientTest {
                     public void onSuccess(@NonNull SearchResult searchResult) {
                         assertEquals(100, searchResult.getResults().length);
                         assertTrue(searchResult.getResults()[0].getTitle().toLowerCase().contains("the lord of the rings"));
-                        System.out.println("Received: " + searchResult.toString());
+                        System.out.println("Received: " + searchResult);
                     }
 
                     @Override
@@ -284,7 +284,7 @@ public class OpenLibraryClientTest {
                     public void onSuccess(@NonNull SearchResult searchResult) {
                         assertEquals(100, searchResult.getResults().length);
                         assertTrue(Arrays.toString(searchResult.getResults()[0].getAuthorNames()).toLowerCase().contains("tolkien"));
-                        System.out.println("Received: " + searchResult.toString());
+                        System.out.println("Received: " + searchResult);
                     }
 
                     @Override
@@ -331,7 +331,7 @@ public class OpenLibraryClientTest {
                     public void onSuccess(@NonNull Subject subject) {
                         assertTrue(subject.getWorkCount() > 0);
                         assertTrue(subject.getWorks().length > 0);
-                        System.out.println("Received: " + subject.toString());
+                        System.out.println("Received: " + subject);
                     }
 
                     @Override
@@ -366,7 +366,7 @@ public class OpenLibraryClientTest {
                         assertTrue(subjectDetailed.getPlaces().length > 0);
                         assertTrue(subjectDetailed.getTimes().length > 0);
                         assertTrue(subjectDetailed.getPublishingHistory().length > 0);
-                        System.out.println("Received: " + subjectDetailed.toString());
+                        System.out.println("Received: " + subjectDetailed);
                     }
 
                     @Override
