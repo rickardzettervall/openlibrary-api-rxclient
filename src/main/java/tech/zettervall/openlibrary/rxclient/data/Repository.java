@@ -183,8 +183,12 @@ public final class Repository {
      * Get RecentChanges from Open Library API.
      * "This API is experimental. Please be aware that this may change in future."
      *
-     * @param bots         Include or exclude changes made by bots (default is true).
-     * @param limit        Set to only include (n) of recent changes.
+     * @param bots         "Use value true to get only bot changes and
+     *                     use value false to get only human changes."
+     * @param limit        "Maximum number of entries in the response. The default value is
+     *                     100 and the allowed maximum limit is 1000 for performance reasons."
+     * @param offset       "Number of entries to skip in the response. The default value is
+     *                     0 and the allowed maximum is 10000 for performance reasons."
      * @param authorMerges Show recent Author merges (default is false).
      * @param year         Changes in a specific year.
      * @param month        Changes in a specific month (year must also be set).
@@ -193,10 +197,18 @@ public final class Repository {
      */
     public Single<RecentChanges[]> getRecentChanges(@Nullable Boolean bots,
                                                     @Nullable Integer limit,
+                                                    @Nullable Integer offset,
                                                     @Nullable Boolean authorMerges,
                                                     @Nullable Integer year,
                                                     @Nullable Integer month,
                                                     @Nullable Integer day) throws InvalidParameterException {
+        if (limit != null && (limit < 0 || limit > 1000)) {
+            throw new InvalidParameterException("Limit must be either null or between 0 and 1000!");
+        }
+        if (offset != null && (offset < 0 || offset > 10000)) {
+            throw new InvalidParameterException("Offset must be either null or between 0 and 10000!");
+        }
+
         if (authorMerges != null || year != null || month != null || day != null) { // Custom path
             StringBuilder customPath = new StringBuilder();
             if (year != null) {
@@ -230,9 +242,9 @@ public final class Repository {
                 }
                 customPath.append("merge-authors");
             }
-            return openLibraryApi.getRecentChanges(customPath.toString(), limit, bots);
+            return openLibraryApi.getRecentChanges(customPath.toString(), limit, offset, bots);
         } else { // Regular path
-            return openLibraryApi.getRecentChanges(limit, bots);
+            return openLibraryApi.getRecentChanges(limit, offset, bots);
         }
     }
 

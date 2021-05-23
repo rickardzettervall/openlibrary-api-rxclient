@@ -382,7 +382,7 @@ public class OpenLibraryClientTest {
     @Test
     public void getRecentChangesWithoutCustomPathSuccess() {
         openLibraryClient.getRepository().getRecentChanges(
-                false, 3, null, null, null, null
+                false, 3, null, null, null, null, null
         ).blockingSubscribe(new DisposableSingleObserver<RecentChanges[]>() {
             @Override
             public void onSuccess(@NonNull RecentChanges[] recentChanges) {
@@ -403,7 +403,7 @@ public class OpenLibraryClientTest {
     @Test
     public void getRecentChangesWithCustomPathSuccess() {
         openLibraryClient.getRepository().getRecentChanges(
-                false, 3, true, 2021, 1, 10
+                false, 3, null, true, 2021, 1, 10
         ).blockingSubscribe(new DisposableSingleObserver<RecentChanges[]>() {
             @Override
             public void onSuccess(@NonNull RecentChanges[] recentChanges) {

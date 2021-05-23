@@ -111,15 +111,20 @@ interface OpenLibraryApi {
      * RecentChanges API.
      * "This API is experimental. Please be aware that this may change in future."
      *
-     * @param path  Used to set custom path such as date and/or author merges.
-     * @param limit Set to only include (n) of recent changes.
-     * @param bots  Include or exclude changes made by bots (default is true).
+     * @param path   Used to set custom path such as date and/or author merges.
+     * @param limit  "Maximum number of entries in the response. The default value is
+     *               100 and the allowed maximum limit is 1000 for performance reasons."
+     * @param bots   "Use value true to get only bot changes and
+     *               use value false to get only human changes."
+     * @param offset "Number of entries to skip in the response. The default value is
+     *               0 and the allowed maximum is 10000 for performance reasons."
      * @return Observable Single<RecentChanges[]>
      */
     @GET("recentchanges/{path}.json")
     Single<RecentChanges[]> getRecentChanges(
             @Path("path") String path,
             @Query("limit") Integer limit,
+            @Query("offset") Integer offset,
             @Query("bots") Boolean bots
     );
 
@@ -127,13 +132,18 @@ interface OpenLibraryApi {
      * RecentChanges API.
      * "This API is experimental. Please be aware that this may change in future."
      *
-     * @param limit Set to only include (n) of recent changes.
-     * @param bots  Include or exclude changes made by bots (default is true).
+     * @param limit  "Maximum number of entries in the response. The default value is
+     *               100 and the allowed maximum limit is 1000 for performance reasons."
+     * @param bots   "Use value true to get only bot changes and
+     *               use value false to get only human changes."
+     * @param offset "Number of entries to skip in the response. The default value is
+     *               0 and the allowed maximum is 10000 for performance reasons."
      * @return Observable Single<RecentChanges[]>
      */
     @GET("recentchanges.json")
     Single<RecentChanges[]> getRecentChanges(
             @Query("limit") Integer limit,
+            @Query("offset") Integer offset,
             @Query("bots") Boolean bots
     );
 }
