@@ -6,12 +6,7 @@ import io.reactivex.rxjava3.core.Single;
 import tech.zettervall.openlibrary.rxclient.models.*;
 
 import java.security.InvalidParameterException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
-import static io.reactivex.rxjava3.core.Single.just;
 
 public final class Repository {
 
@@ -88,8 +83,13 @@ public final class Repository {
         if (bookClass == Book.class) {
             throw new InvalidParameterException("Book.class not allowed as bookClass parameter");
         }
-        String identifier = Arrays.stream(identifiers).map(String::trim)
-                .collect(Collectors.joining(","));
+        StringBuilder identifier = new StringBuilder();
+        for (int i = 0; i < identifiers.length; i++) {
+            identifier.append(identifiers[i]);
+            if (i < identifiers.length - 1) {
+                identifier.append(",");
+            }
+        }
         String jsCmd;
         if (bookClass == BookData.class) {
             jsCmd = JSCMD_DATA;
@@ -98,12 +98,12 @@ public final class Repository {
         } else {
             jsCmd = JSCMD_VIEWAPI;
         }
-        return openLibraryApi.getBooks(identifier, FORMAT_JSON, jsCmd)
-                .flatMap(jsonObject -> {
+        return openLibraryApi.getBooks(identifier.toString(), FORMAT_JSON, jsCmd)
+                .map(jsonObject -> {
                     if (jsonObject.keySet().size() == 0) {
                         throw new Exception(HTTP_404);
                     }
-                    return just(Book.jsonConverter(bookClass, jsonObject));
+                    return Book.jsonConverter(bookClass, jsonObject);
                 });
     }
 
@@ -134,12 +134,13 @@ public final class Repository {
             default:
                 response = openLibraryApi.search(reformattedQuery, null, null, page);
         }
-        return response.flatMap(result -> {
-            if (result.getResults().length == 0) {
-                throw new Exception(HTTP_404);
-            }
-            return just(result);
-        });
+        return response.
+                map(searchResult -> {
+                    if (searchResult.getResults().length == 0) {
+                        throw new Exception(HTTP_404);
+                    }
+                    return searchResult;
+                });
     }
 
     /**
@@ -170,12 +171,11 @@ public final class Repository {
                 limit,
                 offset,
                 (subjectClass == SubjectDetailed.class ? true : null))
-                .flatMap(jsonObject -> {
+                .map(jsonObject -> {
                     if (jsonObject.keySet().size() == 0) {
                         throw new Exception(HTTP_404);
-                    } else {
-                        return just(Subject.jsonConverter(subjectClass, jsonObject));
                     }
+                    return Subject.jsonConverter(subjectClass, jsonObject);
                 });
     }
 
@@ -256,11 +256,20 @@ public final class Repository {
      */
     @Nullable
     public String getPublishedRangeString(Integer... range) throws IllegalArgumentException {
-        if (range.length > 2) {
-            throw new IllegalArgumentException("Range must be of max length 2");
+        if (range.length == 0 || range.length > 2) {
+            throw new IllegalArgumentException("Range must be of length 1-2");
         }
-        String str = Arrays.stream(range).filter(Objects::nonNull).map(Object::toString).collect(Collectors.joining("-"));
-        return !str.isEmpty() ? str : null;
+        StringBuilder str = new StringBuilder();
+        if (range[0] != null) {
+            str.append(range[0]);
+        }
+        if (range[1] != null) {
+            if (!str.toString().isEmpty()) {
+                str.append("-");
+            }
+            str.append(range[1]);
+        }
+        return !str.toString().isEmpty() ? str.toString() : null;
     }
 
     /**
