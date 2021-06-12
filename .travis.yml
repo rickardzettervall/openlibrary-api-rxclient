@@ -1,2 +1,5 @@
 language: java
-mvn test -B
+jdk: openjdk8
+script:
+  - mvn test
+  - mvn clean
