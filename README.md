@@ -3,8 +3,7 @@
 The Open Library API RxClient is a Java library for easily connecting to https://openlibrary.org/developers/api/
 and getting the received data as RxJava observables. The client is optimized for Android but can also be used elsewhere.  
 
-<a href="https://dev.odenapps.com/job/Rickard%20Zettervall/job/openlibrary-api-rxclient/job/master/"><img src="https://dev.odenapps.com/buildStatus/icon?job=Rickard+Zettervall%2Fopenlibrary-api-rxclient%2Fmaster"></a>
-<a href="https://jitpack.io/#rickardzettervall/openlibrary-api-rxclient/"><img src="https://jitpack.io/v/rickardzettervall/openlibrary-api-rxclient.svg"></a>
+<img src="https://travis-ci.com/rickardzettervall/openlibrary-api-rxclient.svg?branch=master"> <a href="https://jitpack.io/#rickardzettervall/openlibrary-api-rxclient/"><img src="https://jitpack.io/v/rickardzettervall/openlibrary-api-rxclient.svg"></a>
 
 <h3>Supported APIs</h3>
 <li>Books (<a href="https://openlibrary.org/dev/docs/api/books">https://openlibrary.org/dev/docs/api/books</a>)</li>
