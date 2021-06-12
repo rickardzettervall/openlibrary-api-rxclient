@@ -8,9 +8,10 @@ and getting the received data as RxJava observables. The client is optimized for
 <h3>Supported APIs</h3>
 <li>Books (<a href="https://openlibrary.org/dev/docs/api/books">https://openlibrary.org/dev/docs/api/books</a>)</li>
 <li>Covers (<a href="https://openlibrary.org/dev/docs/api/covers">https://openlibrary.org/dev/docs/api/covers</a>)</li>
+<li>Read (<a href="https://openlibrary.org/dev/docs/api/read">https://openlibrary.org/dev/docs/api/read</a>)</li>
+<li>RecentChanges (<a href="https://openlibrary.org/dev/docs/api/recentchanges">https://openlibrary.org/dev/docs/api/recentchanges</a>)</li>
 <li>Search (<a href="https://openlibrary.org/dev/docs/api/search">https://openlibrary.org/dev/docs/api/search</a>)</li>
 <li>Subjects (<a href="https://openlibrary.org/dev/docs/api/subjects">https://openlibrary.org/dev/docs/api/subjects</a>)</li>
-<li>RecentChanges (<a href="https://openlibrary.org/dev/docs/api/recentchanges">https://openlibrary.org/dev/docs/api/recentchanges</a>)</li>
 
 <h2>Setup (gradle)</h2>
 

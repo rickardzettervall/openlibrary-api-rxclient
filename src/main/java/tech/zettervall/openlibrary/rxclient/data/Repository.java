@@ -1,5 +1,6 @@
 package tech.zettervall.openlibrary.rxclient.data;
 
+import com.google.gson.JsonObject;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.annotations.Nullable;
 import io.reactivex.rxjava3.core.Single;
@@ -249,6 +250,46 @@ public final class Repository {
     }
 
     /**
+     * Get Read from Open Library API.
+     *
+     * "The Open Library Read API is intended to make it easy to turn book identifier
+     * information (ISBN, LCCN etc.) into direct links to Open Library's online-readable
+     * or borrowable books."
+     *
+     * @param idType  Can be 'isbn', 'lccn', 'oclc' or 'olid' (Open Library Identifier).
+     * @param idValue Is the actual library identifier.
+     * @return Observable Single response of Read.
+     */
+    public Single<Read> getRead(@NonNull IdType idType, @NonNull String idValue) {
+        String idTypeStr = "";
+        switch (idType) {
+            case ISBN:
+                idTypeStr = "isbn";
+                break;
+            case OCLC:
+                idTypeStr = "oclc";
+                break;
+            case LCCN:
+                idTypeStr = "lccn";
+                break;
+            case OLID:
+                idTypeStr = "olid";
+                break;
+        }
+        return openLibraryApi.getReads(idTypeStr, idValue)
+                .map(jsonElement -> {
+                    if (jsonElement instanceof JsonObject) {
+                        if (((JsonObject) jsonElement).keySet().size() == 0) {
+                            throw new Exception(HTTP_404);
+                        }
+                        return Read.jsonConverter((JsonObject) jsonElement);
+                    } else {
+                        throw new Exception(HTTP_404);
+                    }
+                });
+    }
+
+    /**
      * Get published range String for Subject API calls.
      *
      * @param range e.g. 1990, 2000 or just 1990.
@@ -327,6 +368,10 @@ public final class Repository {
 
     public enum CoverKey {
         ISBN, OCLC, LCCN, OLID, ID
+    }
+
+    public enum IdType {
+        ISBN, OCLC, LCCN, OLID
     }
 
     public enum CoverSize {

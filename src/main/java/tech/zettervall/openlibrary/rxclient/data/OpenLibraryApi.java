@@ -1,5 +1,6 @@
 package tech.zettervall.openlibrary.rxclient.data;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
@@ -145,5 +146,19 @@ interface OpenLibraryApi {
             @Query("limit") Integer limit,
             @Query("offset") Integer offset,
             @Query("bots") Boolean bots
+    );
+
+    /**
+     * Read API.
+     *
+     * @param idType  Can be 'isbn', 'lccn', 'oclc' or 'olid' (Open Library Identifier).
+     * @param idValue Is the actual library identifier.
+     * @return JsonObject of the API response, conversion to POJO is not possible because the
+     * returned labels are dynamic.
+     */
+    @GET("api/volumes/brief/{id-type}/{id-value}.json")
+    Single<JsonElement> getReads(
+            @Path("id-type") String idType,
+            @Path("id-value") String idValue
     );
 }

@@ -417,4 +417,43 @@ public class OpenLibraryClientTest {
             }
         });
     }
+
+    /**
+     * Test a successful API fetch of Read.
+     */
+    @Test
+    public void getReadSuccess() {
+        openLibraryClient.getRepository().getRead(Repository.IdType.ISBN, "0596156715")
+                .blockingSubscribe(new DisposableSingleObserver<Read>() {
+                    @Override
+                    public void onSuccess(@NonNull Read read) {
+                        assertNotNull(read.getRecords()[0]);
+                        System.out.println("Received: " + read);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        fail();
+                    }
+                });
+    }
+
+    /**
+     * Test a failed API fetch of Read.
+     */
+    @Test
+    public void getReadFail() {
+        openLibraryClient.getRepository().getRead(Repository.IdType.ISBN, "00000000000")
+                .blockingSubscribe(new DisposableSingleObserver<Read>() {
+                    @Override
+                    public void onSuccess(@NonNull Read read) {
+                        fail();
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        assertTrue(e.toString().contains("404"));
+                    }
+                });
+    }
 }
