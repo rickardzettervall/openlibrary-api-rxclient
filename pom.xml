@@ -6,7 +6,7 @@
 
     <groupId>tech.zettervall</groupId>
     <artifactId>openlibrary-api-rxclient</artifactId>
-    <version>0.1-beta</version>
+    <version>0.2</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
