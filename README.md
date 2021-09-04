@@ -28,7 +28,7 @@ Add the dependency to your project build.gradle file:
 
     dependencies {
             ...
-	        implementation 'com.github.rickardzettervall:openlibrary-api-rxclient:0.1-beta'
+	        implementation 'com.github.rickardzettervall:openlibrary-api-rxclient:0.2'
 	}
 
 More setup options can be found over at <a href="https://jitpack.io/#rickardzettervall/openlibrary-api-rxclient/">jitpack.io</a>.
